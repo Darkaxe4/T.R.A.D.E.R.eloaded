@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6360172218372062649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1874183171044395725}
+  - component: {fileID: 1168102630685772215}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1874183171044395725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6360172218372062649}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1168102630685772215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6360172218372062649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63aaa6bb48a63a046a9b07eb33f0e63c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 8397989251589144555, guid: 68ab9e744ede52443b971177b61af23e, type: 3}
+  - {fileID: 3108362543909146777, guid: 097527e986bc7734c8587d4b0199c66b, type: 3}
+  - {fileID: 551356679103515747, guid: 753c5bf5a1b54fe4595fd1885ea25048, type: 3}
+  - {fileID: 1103992691208105476, guid: 5217cf67083c0e4408ab7dfccb5bf36b, type: 3}
+  - {fileID: 8201754243946180741, guid: 5fa9c5264df4a7940baf363910e6ef38, type: 3}
+  - {fileID: 2182345483931701876, guid: f1029c8660acbec4c8677fcbd3134ac7, type: 3}
+  - {fileID: 9204343750101740252, guid: 1523f191523421f458cb615bcdef55ae, type: 3}
+  - {fileID: 1500817213546163898, guid: 6a83393566202904a9a2a37b23da30e0, type: 3}
+  - {fileID: 2583118211587061329, guid: 6d40dc46b15827b4ca5ce3167dc5458b, type: 3}
+  - {fileID: 5873475658592440601, guid: 2bea919ae715bec40ad1df2ac888af91, type: 3}
+  - {fileID: 4391422103666359570, guid: 0d9c125a8c4ee9a4daeca3e96a6ec74d, type: 3}
+  - {fileID: 2570396868911519354, guid: f4cd3b266523211438f157b39b39b008, type: 3}
+  - {fileID: 6953449636013221320, guid: c9bf41000212edb4296b463ac04a28ec, type: 3}
+  obstacles:
+  - {fileID: 76790928548556206, guid: 74273207e6f3e184ea66e5b5fbf1ab04, type: 3}
+  - {fileID: 3894231587177431036, guid: 6c7dcda78c2d40448b27c6933767520b, type: 3}
+  itemGenerator: {fileID: 2806892872586223259, guid: f270ff4fd1816d246b700e944c33f606, type: 3}
+  genSize: {x: 100, y: 100}
+  tileSize: {x: 4, y: 4}
+  obstacleCount: 500
+  leftBorderTrigger: {fileID: 0}
+  rightBorderTrigger: {fileID: 0}
+  topBorderTrigger: {fileID: 0}
+  bottomBorderTrigger: {fileID: 0}
+  StartPosition: {x: 0, y: 0, z: 0}

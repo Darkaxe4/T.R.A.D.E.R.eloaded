@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2806892872586223259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5247511438903758580}
+  - component: {fileID: 6901665110858942255}
+  m_Layer: 0
+  m_Name: ItemGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5247511438903758580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2806892872586223259}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6261681, y: 0.28762335, z: 0.0070280954}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6901665110858942255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2806892872586223259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb7424f84d9216b41ad6ca13cd30bd3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponNames:
+  - Killer
+  - Assasin
+  - BFS(BigFuckingSword)
+  - DamnSlicer
+  - Dragons Tooth
+  mapSize: {x: 100, y: 100}
+  weaponCountToGen: 50
+  armorCountToGen: 0
+  miscellaneousCountToGen: 0
+  WeaponPeekPrefab:
+  - {fileID: 4766089935345504964, guid: 0bf6a3e5f9792ea4e980804fc94c552d, type: 3}
+  - {fileID: 4226561827941761965, guid: d1fc046e2d26471448efc8e2537f4601, type: 3}
+  - {fileID: 9045527454359112855, guid: 593b9bfa7f1c0f24ca300a7d7e84c45b, type: 3}
+  WeaponHandlePrefab:
+  - {fileID: 8855942063296752620, guid: 40acd11dee02351499d54d30b53e52d2, type: 3}
+  - {fileID: 1409952075714506134, guid: cc781c78a1c297a4ea9f015a72cb8fe4, type: 3}
+  - {fileID: 7013530464733956737, guid: 5cd67e5420dfcf743a2846bcafeeffa9, type: 3}
+  WeaponGardPrefab:
+  - {fileID: 6922471023743992456, guid: 7924a43ebc948ca43bdf7aaf54f02464, type: 3}
+  - {fileID: 634641111717095409, guid: 4d0245991fbd4b142924afd162879d7c, type: 3}
+  - {fileID: 6012605000607277080, guid: fdfb266da77995745a89456635cce571, type: 3}
+  WeaponBladePrefab:
+  - {fileID: 4702505577443198127, guid: 2f0e5c8cde34f5f498a45c78b396a978, type: 3}
+  - {fileID: 8775648948955621402, guid: 7237ec9f049e5cd4090b8f8d8d342c8a, type: 3}
+  - {fileID: 1692071942523014722, guid: 453985eadeb74c94893fb48b218c5472, type: 3}
+  armorPrefab: []
+  miscellaneousPrefab: []
