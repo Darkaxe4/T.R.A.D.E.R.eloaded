@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class ChunkGenerator : MonoBehaviour
 {
-    public Vector2 TileSize;
+    public Vector2Int TileSize;
     public Vector2Int ChunkSize;
 
     public List<Tile> TilePrefabs;
@@ -196,7 +196,7 @@ public class ChunkGenerator : MonoBehaviour
         }
     }
 
-    public void GenerateChunk(Vector2Int position, Chunk leftChunk, Chunk rightChunk, Chunk bottomChunk, Chunk topChunk)
+    public Chunk GenerateChunk(Vector2Int position, Chunk leftChunk, Chunk rightChunk, Chunk bottomChunk, Chunk topChunk)
     {
         var Temp = new GameObject();
         Temp.AddComponent<Chunk>();
@@ -239,11 +239,12 @@ public class ChunkGenerator : MonoBehaviour
         while (TilesToPlace.Count > 0)
         {
             var currentTile = TilesToPlace.Dequeue();
-            Debug.Log(currentTile);
+            Debug.Log("Generated tile:\t" + currentTile.ToString());
             Chunk.tiles[currentTile.x, currentTile.y] = PlaceTile(ChooseTile(currentTile), currentTile);
             Chunk.tiles[currentTile.x, currentTile.y].gameObject.name = currentTile.ToString();
             RecalculatePossible(currentTile);
             AddAdjacentTilesToQueue(ref TilesToPlace, currentTile);
         }
+        return Chunk;
     }
 }

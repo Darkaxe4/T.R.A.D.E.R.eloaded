@@ -6,11 +6,13 @@ public class DebugScript : MonoBehaviour
 {
     public Vector2 TestField = new Vector2 (0, 0);
     public ChunkGenerator ChunkGenerator;
+    public MapGenerator MapGenerator;
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(TestField.ToString());
-        ChunkGenerator.GenerateChunk(new Vector2Int(0, 0), null, null, null, null);
+        //Debug.Log(TestField.ToString());
+        //ChunkGenerator.GenerateChunk(new Vector2Int(0, 0), null, null, null, null);
+        MapGenerator.Init();
     }
 
     // Update is called once per frame

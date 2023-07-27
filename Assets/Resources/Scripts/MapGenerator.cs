@@ -10,15 +10,13 @@ using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
 {
-    public List<Tile> prefabs;
-
     public GameObject ChunkGeneratorPrefab;
 
     public Vector2Int genSize;
-    public Vector2 chunkSize;
+    public Vector2Int chunkSize;
 
     public GameObject activeChunk;
-    public GameObject[,] Chunks;
+    public Chunk[,] Chunks;
     public Vector2Int MapDimensions;
 
     private ChunkGenerator chunkGenerator;
@@ -31,8 +29,21 @@ public class MapGenerator : MonoBehaviour
     }
     public void Init()
     {
-        Chunks = new GameObject[MapDimensions.x, MapDimensions.y];
+        Chunks = new Chunk[MapDimensions.x, MapDimensions.y];
+        for (int i = 0; i < MapDimensions.x; i++)
+        {
+            for (int j = 0; j < MapDimensions.y; j++)
+            {
+                Chunks[i, j] = null;
+            }
+        }
         chunkGenerator = Instantiate(ChunkGeneratorPrefab).GetComponent<ChunkGenerator>();
+        chunkSize = new Vector2Int(chunkGenerator.TileSize.x * chunkGenerator.ChunkSize.x, chunkGenerator.TileSize.y * chunkGenerator.ChunkSize.y);
+        Chunks[MapDimensions.x / 2, MapDimensions.y / 2] = chunkGenerator.GenerateChunk(Vector2Int.zero, null, null, null, null);
+        activeChunk = Chunks[MapDimensions.x / 2, MapDimensions.y / 2].gameObject;
+        Debug.Log(new Vector2Int(MapDimensions.x / 2, MapDimensions.y / 2));
+        Debug.Log(Chunks[MapDimensions.x / 2, MapDimensions.y / 2]);
+        GenerateAdjacentChunks(new Vector2Int(MapDimensions.x / 2, MapDimensions.y / 2));
     }
 
     // Update is called once per frame
@@ -43,22 +54,52 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerateAdjacentChunks(Vector2Int ChunkPosition)
     {
-        for (int dy = -1; dy <= 1; ++dy)
+        var absChunkPosition = Chunks[ChunkPosition.x, ChunkPosition.y].ChunkPosition;
+        if (ChunkPosition.x - 1 >= 0) 
         {
-            for (int dx = -1; dx <= 1; ++dx) 
-            {
-                Vector2Int curpos = new Vector2Int(ChunkPosition.x + dx, ChunkPosition.y + dy);
-                if (Chunks[curpos.x,curpos.y] == null)
-                {
-                    chunkGenerator.GenerateChunk(curpos, 
-                        Chunks[curpos.x - 1, curpos.y].GetComponent<Chunk>(), 
-                        Chunks[curpos.x + 1, curpos.y].GetComponent<Chunk>(), 
-                        Chunks[curpos.x, curpos.y - 1].GetComponent<Chunk>(), 
-                        Chunks[curpos.x, curpos.y + 1].GetComponent<Chunk>()
-                        );
-                }
-            }
+            Vector2Int lChunkPos = new Vector2Int(absChunkPosition.x - chunkSize.x, absChunkPosition.y);
+            Chunks[ChunkPosition.x - 1, ChunkPosition.y] = chunkGenerator.GenerateChunk(lChunkPos,
+                (ChunkPosition.x - 1 - 1 >= 0) ? Chunks[ChunkPosition.x - 1 - 1, ChunkPosition.y] : null,
+                Chunks[ChunkPosition.x, ChunkPosition.y],
+                (ChunkPosition.y - 1 >= 0) ? Chunks[ChunkPosition.x - 1, ChunkPosition.y - 1] : null,
+                (ChunkPosition.y + 1 < MapDimensions.y) ? Chunks[ChunkPosition.x - 1, ChunkPosition.y + 1] : null
+            ); 
         }
+
+
+        if (ChunkPosition.x + 1 < MapDimensions.x)
+        {
+            Vector2Int rChunkPos = new Vector2Int(absChunkPosition.x + chunkSize.x, absChunkPosition.y);
+            Chunks[ChunkPosition.x + 1, ChunkPosition.y] = chunkGenerator.GenerateChunk(rChunkPos,
+                Chunks[ChunkPosition.x, ChunkPosition.y],
+                (ChunkPosition.x + 1 + 1 < MapDimensions.x) ? Chunks[ChunkPosition.x + 1 + 1, ChunkPosition.y] : null,
+                (ChunkPosition.y - 1 >= 0) ? Chunks[ChunkPosition.x + 1, ChunkPosition.y - 1] : null,
+                (ChunkPosition.y + 1 < MapDimensions.y) ? Chunks[ChunkPosition.x + 1, ChunkPosition.y + 1] : null
+                ); 
+        }
+
+        if (ChunkPosition.y - 1 >= 0)
+        {
+            Vector2Int downChunkPos = new Vector2Int(absChunkPosition.x, absChunkPosition.y - chunkSize.y);
+            Chunks[ChunkPosition.x, ChunkPosition.y - 1] = chunkGenerator.GenerateChunk(downChunkPos,
+                (ChunkPosition.x - 1 >= 0) ? Chunks[ChunkPosition.x - 1, ChunkPosition.y - 1] : null,
+                (ChunkPosition.x + 1 < MapDimensions.x) ? Chunks[ChunkPosition.x + 1, ChunkPosition.y - 1] : null,
+                (ChunkPosition.y - 1 - 1 >= 0) ? Chunks[ChunkPosition.x, ChunkPosition.y - 1 - 1] : null,
+                Chunks[ChunkPosition.x, ChunkPosition.y]
+                ); 
+        }
+
+        if (ChunkPosition.y + 1 < MapDimensions.y)
+        {
+            Vector2Int upChunkPos = new Vector2Int(absChunkPosition.x, absChunkPosition.y + chunkSize.y);
+            Chunks[ChunkPosition.x, ChunkPosition.y + 1] = chunkGenerator.GenerateChunk(upChunkPos,
+                (ChunkPosition.x - 1 >= 0) ? Chunks[ChunkPosition.x - 1, ChunkPosition.y + 1] : null,
+                (ChunkPosition.x + 1 < MapDimensions.x) ? Chunks[ChunkPosition.x + 1, ChunkPosition.y + 1] : null,
+                Chunks[ChunkPosition.x, ChunkPosition.y],
+                (ChunkPosition.y + 1 < MapDimensions.y) ? Chunks[ChunkPosition.x, ChunkPosition.y + 1 + 1] : null
+                ); 
+        }
+
     }
     
 }
