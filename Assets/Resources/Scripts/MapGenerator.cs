@@ -1,3 +1,5 @@
+/*Script containing class of the map generator using WFC alghorithm
+ */
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,18 +9,25 @@ using Random = UnityEngine.Random;
 
 
 
-
+//Class using for managing, generating, saving and loading chunks as player going throughout the map
 public class MapGenerator : MonoBehaviour
 {
+    //pointer to chunk generator prefab
     public GameObject ChunkGeneratorPrefab;
 
-    public Vector2Int genSize;
+    //size of each chunk in unity metrics
     public Vector2Int chunkSize;
 
+    //pointer to current active chunk where the player located
     public GameObject activeChunk;
+
+    //array containing chunk objects of the map
     public Chunk[,] Chunks;
+
+    //size of map to generate in chunks
     public Vector2Int MapDimensions;
 
+    //pointer to chunk generator object
     private ChunkGenerator chunkGenerator;
 
 
@@ -27,6 +36,7 @@ public class MapGenerator : MonoBehaviour
     {
         
     }
+    //debug method for testing map generator functionality
     public void Init()
     {
         Chunks = new Chunk[MapDimensions.x, MapDimensions.y];
@@ -52,6 +62,7 @@ public class MapGenerator : MonoBehaviour
         
     }
 
+    //method using for generating adjacent chunks to chunk at the ChunkPosition
     public void GenerateAdjacentChunks(Vector2Int ChunkPosition)
     {
         var absChunkPosition = Chunks[ChunkPosition.x, ChunkPosition.y].ChunkPosition;
@@ -100,6 +111,11 @@ public class MapGenerator : MonoBehaviour
                 ); 
         }
 
+    }
+
+    public void SaveMap(string filename)
+    {
+        
     }
     
 }

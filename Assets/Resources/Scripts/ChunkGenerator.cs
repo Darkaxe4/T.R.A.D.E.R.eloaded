@@ -1,3 +1,6 @@
+/*
+ * Script defining class of the Chunk generator to generate chunks of the map using WFC(wave function collapse) alghorithm
+ */
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,16 +9,21 @@ using Random = UnityEngine.Random;
 
 public class ChunkGenerator : MonoBehaviour
 {
+    //Size of each single tile in unity metrics
     public Vector2Int TileSize;
+    //Size of chunk to generate in tiles
     public Vector2Int ChunkSize;
 
+    //List containing prefabs of map tiles to place
     public List<Tile> TilePrefabs;
 
+    //pointer to current generating chunk
     public Chunk Chunk;
 
+    //Array of size ChunkSize containing lists of identificators of tileTypes which could be placed at every position (part of WFC alg)
     private List<int>[,] PossibleTilesIDS;
 
-
+    //method for placing tile "tileToPlace" at position "pos" relative to the chunk.position
     public GameObject PlaceTile(Tile tileToPlace, Vector2Int pos)
     {
         PossibleTilesIDS[pos.x, pos.y] = null;
@@ -28,6 +36,7 @@ public class ChunkGenerator : MonoBehaviour
         return result;
     }
 
+    //part of WFC: method for choose tile at positon from PossibleTilesIDS[position.x, position.y]
     public Tile ChooseTile(Vector2Int position)
     {
         float totalProbability = 0f;
@@ -46,6 +55,7 @@ public class ChunkGenerator : MonoBehaviour
         return TilePrefabs[PossibleTilesIDS[position.x, position.y][ptr]];
     }
 
+    //part of WFC: method checking whether two tiles could be placed together
     private bool CanBePlacedTogether(Tile existing, Tile placing, Vector2Int direction)
     {
         if (existing == null) return true;
@@ -92,6 +102,7 @@ public class ChunkGenerator : MonoBehaviour
         return false;
     }
 
+    //part of WFC: mathod recalculating possible adjacent tiles IDs at position
     private void RecalculatePossible(Vector2Int position)
     {
         if (position.x - 1 >= 0)
@@ -129,6 +140,7 @@ public class ChunkGenerator : MonoBehaviour
 
     }
 
+    //part of WFC: method using for adding adjacent tiles to placing queue after placing a tile at position "currentTile"
     private void AddAdjacentTilesToQueue(ref Queue<Vector2Int> queue, Vector2Int currentTile)
     {
         if (currentTile.x - 1 >= 0)
@@ -165,6 +177,7 @@ public class ChunkGenerator : MonoBehaviour
         }
     }
 
+    //part of WFC: method using for recalculating borders possible tiles IDs with paying attention to adjacent chunks border tiles
     private void RecalculateBorders(Tile[] leftBorder, Tile[] rightBorder, Tile[] bottomBorder, Tile[] topBorder)
     {
         
@@ -196,6 +209,7 @@ public class ChunkGenerator : MonoBehaviour
         }
     }
 
+    //WFC method using for generating chunk at position paying attention to the adjacent chunks
     public Chunk GenerateChunk(Vector2Int position, Chunk leftChunk, Chunk rightChunk, Chunk bottomChunk, Chunk topChunk)
     {
         var Temp = new GameObject();

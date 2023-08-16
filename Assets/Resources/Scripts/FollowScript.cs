@@ -14,7 +14,7 @@ public class FollowScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         cameraSpeed = objectToFollow.GetComponent<PlayerController>().GetCurrentSpeed();
         if (((Vector2)objectToFollow.GetComponent<Transform>().position - (Vector2)transform.position).magnitude > followingDistance) 
